@@ -22,10 +22,11 @@ encoder_inputs = Input(shape=(None, num_encoder_tokens))
 encoder_lstm = LSTM(latent_dim, return_state=True)
 encoder_outputs, state_hidden, state_cell = encoder_lstm(encoder_inputs)
 encoder_states = [state_hidden, state_cell]
+#as I understand encoder_outputs, state_hidden, state_cell and encoder_states are all empty or correspond to empty valures.
 
 # Decoder training setup:
 decoder_inputs = Input(shape=(None, num_decoder_tokens))
-decoder_lstm = LSTM(latent_dim, return_sequences=True, return_state=True)
+decoder_lstm = LSTM(latent_dim, return_sequences=True, return_state=True) #latent_dim =  number of nuerons in LSTM layer
 decoder_outputs, decoder_state_hidden, decoder_state_cell = decoder_lstm(decoder_inputs, initial_state=encoder_states)
 decoder_dense = Dense(num_decoder_tokens, activation='softmax')
 decoder_outputs = decoder_dense(decoder_outputs)
